@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
-      protected $fillable = [
+    protected $fillable = [
         'title',
         'slug',
         'description',
@@ -42,27 +42,27 @@ class Movie extends Model
         return $this->ratings()->avg('rating');
     }
 
-    // public function getStreamingUrl(string $planResolution): string
-    // {
-    //     return match ($planResolution) {
-    //         '720p' => $this->url_720,
-    //         '1080p' => $this->url_1080,
-    //         '4k' => $this->url_4k,
-    //         default => $this->url_720,
-    //     };
-    // }
+    public function getStreamingUrl(string $planResolution): string
+    {
+        return match ($planResolution) {
+            '720p' => $this->url_720,
+            '1080p' => $this->url_1080,
+            '4k' => $this->url_4k,
+            default => $this->url_720,
+        };
+    }
 
-    // public function getFormattedDurationAttribute()
-    // {
-    //     $hours = floor($this->duration / 60);
-    //     $minutes = $this->duration % 60;
-    //     $formatted = '';
-    //     if ($hours > 0) {
-    //         $formatted .= "{$hours}h ";
-    //     }
-    //     if ($minutes > 0 || $hours == 0) {
-    //         $formatted .= "{$minutes}m";
-    //     }
-    //     return trim($formatted);
-    // }
+    public function getFormattedDurationAttribute()
+    {
+        $hours = floor($this->duration / 60);
+        $minutes = $this->duration % 60;
+        $formatted = '';
+        if ($hours > 0) {
+            $formatted .= "{$hours}h ";
+        }
+        if ($minutes > 0 || $hours == 0) {
+            $formatted .= "{$minutes}m";
+        }
+        return trim($formatted);
+    }
 }
