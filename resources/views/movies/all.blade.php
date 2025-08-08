@@ -19,6 +19,7 @@
             let loadMoreBtn = document.querySelector('#load-more');
             loadMoreBtn.addEventListener('click', function() {
                 let page = loadMoreBtn.getAttribute('data-page');
+
                 fetch(`/movies?page=${page}`, {
                         headers: {
                             'X-Requested-With': 'XMLHttpRequest'
@@ -27,9 +28,12 @@
                     .then(response => response.json())
                     .then(data => {
                         let movieList = document.querySelector('#movie-list');
+
                         movieList.insertAdjacentHTML('beforeend', data.html);
+                        
                         // Update page for next load
                         loadMoreBtn.setAttribute('data-page', parseInt(page) + 1);
+
                         // Hide button if no more pages
                         if (!data.next_page) {
                             loadMoreBtn.style.display = 'none';
