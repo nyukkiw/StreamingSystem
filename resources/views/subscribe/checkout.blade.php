@@ -43,25 +43,22 @@
                 </label>
             </div>
 
-            <form action="{{ route('subscribe.process') }} " method="POST">
-                @csrf
-                <input type="hidden" name="plan_id" value="{{ $plan->id }}">
-                <input type="hidden" name="total_payment" value="{{ $plan->price * 0.12 }}">
+            <form action="#" method="POST">
                 <button type="submit" class="w-100 btn btn-green" id="pay-button">Continue</button>
             </form>
-            
         </div>
     </div>
 @endsection
 
-{{-- @section('scripts')
+@section('scripts')
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}">
     </script>
     <script>
         const payButton = document.querySelector('#pay-button');
         payButton.addEventListener('click', function(e) {
             e.preventDefault();
-            fetch('/subscribe/checkout', {
+            
+            fetch('/checkout', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -100,5 +97,5 @@
                     alert('Something went wrong');
                 });
         });
-    </script> --}}
-{{-- @endsection --}}
+    </script>
+@endsection

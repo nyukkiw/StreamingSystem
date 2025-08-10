@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MovieController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubscribeController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Http\Request;
 
 Route::get('/',[MovieController::class, 'index']);
@@ -11,6 +12,8 @@ Route::get('/subscribe/plans', [SubscribeController::class,'showPlans'])->name('
 Route::get('/subscribe/plan/{plan}', [SubscribeController::class, 'checkoutPlan'])->name('subscribe.checkout');
 Route::post('/subscribe/checkout', [SubscribeController::class, 'processCheckout'])->name('subscribe.process');
 Route::get('/subscribe/success', [SubscribeController::class,'showSuccess'])->name('subscribe.success');
+
+Route::post('/checkout',[TransactionController::class,'checkout'])->name('checkout');
 
 Route::get('/home', [MovieController::class, 'index'])->name('home');
 Route::get('/movies', [MovieController::class, 'all'])->name('movies.index');
