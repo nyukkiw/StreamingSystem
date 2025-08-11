@@ -18,12 +18,14 @@ class TransactionController extends Controller
         Config::$is3ds = config('midtrans.is_3ds');
     }
 
-    public function checkout(Request $request){
+   public function checkout(Request $request)
+    {
         $user = Auth::user();
 
         $request->validate([
-            'plan_id' => 'required|exists:plans,id'
+            'plan_id' => 'required|exists:plans,id',
         ]);
+
         $transactionNumber = 'ORDER-' . time() . '-' . $user->id;
 
         $transaction = Transaction::create([
@@ -34,7 +36,7 @@ class TransactionController extends Controller
             'payment_status' => 'pending'
         ]);
 
-         $payload = [
+        $payload = [
             'transaction_details' => [
                 'order_id' => $transaction->transaction_number,
                 'gross_amount' => (int) $transaction->total_amount,
@@ -53,7 +55,7 @@ class TransactionController extends Controller
                 ],
             ],
         ];
-        
+
         try {
             $snapToken = Snap::getSnapToken($payload);
             $transaction->update(['snap_token' => $snapToken]);
@@ -67,10 +69,7 @@ class TransactionController extends Controller
                 'message' => $e->getMessage()
             ], 500);
         }
-
-
-
-
+    
 
 
     }
